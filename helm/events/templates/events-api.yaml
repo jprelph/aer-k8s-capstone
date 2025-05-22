@@ -18,4 +18,16 @@ spec:
       - image: jamesrelph/events-api
         name: events-api
         ports:
-        - containerPort: 8082  
+        - containerPort: 8082
+        env:
+        - name: DBHOST
+          value: "events-mariadb"
+        - name: DBUSER
+          value: "root"
+        - name: DBPASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: "events-mariadb"
+              key: "mariadb-root-password"
+        - name: DBDATABASE
+          value: "events_db"  
